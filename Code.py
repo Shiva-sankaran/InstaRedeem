@@ -11,7 +11,7 @@ import os
 import shutil
 import selenium.webdriver.support.ui as ui
 
-fp = webdriver.FirefoxProfile("/home/shivasankaran/mzdir")
+fp = webdriver.FirefoxProfile("/home/shivasankaran/mzdir") # mzdir should be your profile directory
 driver=webdriver.Firefox(fp)
 driver.maximize_window()
 driver.get('https://www.google.com?q=google.com#q=google.com')
@@ -23,7 +23,7 @@ first_result = ui.WebDriverWait(driver, 15).until(lambda driver: driver.find_ele
 driver.switch_to.window(driver.window_handles[1])
 driver.get("https://storydownloader.net/")
 driver.switch_to.window(driver.window_handles[2])
-driver.get('https://www.google.com?q=ffreward#q=ffreward')
+driver.get('https://www.google.com?q=ffreward#q=ffreward') # replace ffreward with anything that google search will give the redemption site as first result
 first_result = ui.WebDriverWait(driver, 15).until(lambda driver: driver.find_element_by_class_name('rc'))
 first_link = first_result.find_element_by_tag_name('a')
 for i in range(10):
@@ -59,20 +59,19 @@ my_list=text.split("\n")
 for word in my_list:
     if len(word)==12:
         redeem_codes.append(word)
-print("redeem codes extracted")
+print("redeem codes extracted:")
 print(redeem_codes)
-print(type(redeem_codes))
 
 
 tabno=3
-for redeem_code in redeem_codes:
+for redeem_code in redeem_codes: # to log in to redemption site using fb
     driver.switch_to.window(driver.window_handles[tabno])
     WebDriverWait(driver,20).until(EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/div/div/main/div[2]/div[2]/div[1]/span')))
     elem=driver.find_element_by_xpath('/html/body/div[1]/div/div/main/div[2]/div[2]/div[1]/span')
     elem.click()
     tabno=tabno+1
 tabno=3
-for redeem_code in redeem_codes:
+for redeem_code in redeem_codes: # to input redeem codes in the site
     driver.switch_to.window(driver.window_handles[tabno])   
     WebDriverWait(driver,20).until(EC.presence_of_element_located((By.ID,'input_serial_1')))
     elem=driver.find_element_by_id('input_serial_1')
